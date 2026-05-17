@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_05_17_200324) do
+ActiveRecord::Schema[8.1].define(version: 2026_05_17_200855) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -92,6 +92,16 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_17_200324) do
     t.index ["creator_id"], name: "index_teams_on_creator_id"
   end
 
+  create_table "user_projects", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.bigint "project_id", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["project_id"], name: "index_user_projects_on_project_id"
+    t.index ["user_id", "project_id"], name: "index_user_projects_on_user_id_and_project_id", unique: true
+    t.index ["user_id"], name: "index_user_projects_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "email", default: "", null: false
@@ -116,5 +126,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_17_200324) do
   add_foreign_key "projects", "clients"
   add_foreign_key "projects", "teams"
   add_foreign_key "teams", "users", column: "creator_id"
+  add_foreign_key "user_projects", "projects"
+  add_foreign_key "user_projects", "users"
   add_foreign_key "users", "teams"
 end
