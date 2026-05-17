@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_05_17_193450) do
+ActiveRecord::Schema[8.1].define(version: 2026_05_17_200324) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -44,6 +44,18 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_17_193450) do
     t.datetime "updated_at", null: false
     t.index ["adress_id"], name: "index_clients_on_adress_id"
     t.index ["team_id"], name: "index_clients_on_team_id"
+  end
+
+  create_table "installments", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.date "due_date"
+    t.integer "number"
+    t.date "paid_at"
+    t.bigint "project_id", null: false
+    t.integer "status"
+    t.datetime "updated_at", null: false
+    t.integer "value"
+    t.index ["project_id"], name: "index_installments_on_project_id"
   end
 
   create_table "invites", force: :cascade do |t|
@@ -98,6 +110,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_17_193450) do
   add_foreign_key "adresses", "cities"
   add_foreign_key "clients", "adresses"
   add_foreign_key "clients", "teams"
+  add_foreign_key "installments", "projects"
   add_foreign_key "invites", "teams"
   add_foreign_key "invites", "users"
   add_foreign_key "projects", "clients"
