@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_05_17_011842) do
+ActiveRecord::Schema[8.1].define(version: 2026_05_17_193450) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -57,6 +57,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_17_011842) do
   end
 
   create_table "projects", force: :cascade do |t|
+    t.bigint "client_id", null: false
     t.datetime "created_at", null: false
     t.string "description"
     t.date "finish_date"
@@ -64,8 +65,11 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_17_011842) do
     t.string "name"
     t.string "repo"
     t.integer "status"
+    t.bigint "team_id", null: false
     t.integer "total_value"
     t.datetime "updated_at", null: false
+    t.index ["client_id"], name: "index_projects_on_client_id"
+    t.index ["team_id"], name: "index_projects_on_team_id"
   end
 
   create_table "teams", force: :cascade do |t|
@@ -96,6 +100,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_17_011842) do
   add_foreign_key "clients", "teams"
   add_foreign_key "invites", "teams"
   add_foreign_key "invites", "users"
+  add_foreign_key "projects", "clients"
+  add_foreign_key "projects", "teams"
   add_foreign_key "teams", "users", column: "creator_id"
   add_foreign_key "users", "teams"
 end
