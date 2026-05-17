@@ -10,15 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_05_17_005123) do
+ActiveRecord::Schema[8.1].define(version: 2026_05_17_011155) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
   create_table "adresses", force: :cascade do |t|
     t.string "cep"
+    t.bigint "city_id", null: false
     t.datetime "created_at", null: false
     t.integer "number"
     t.string "street"
+    t.datetime "updated_at", null: false
+    t.index ["city_id"], name: "index_adresses_on_city_id"
+  end
+
+  create_table "cities", force: :cascade do |t|
+    t.integer "UF"
+    t.datetime "created_at", null: false
+    t.string "name"
     t.datetime "updated_at", null: false
   end
 
@@ -35,6 +44,16 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_17_005123) do
     t.datetime "updated_at", null: false
     t.index ["adress_id"], name: "index_clients_on_adress_id"
     t.index ["team_id"], name: "index_clients_on_team_id"
+  end
+
+  create_table "invites", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.integer "status"
+    t.bigint "team_id", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["team_id"], name: "index_invites_on_team_id"
+    t.index ["user_id"], name: "index_invites_on_user_id"
   end
 
   create_table "teams", force: :cascade do |t|
@@ -60,8 +79,11 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_17_005123) do
     t.index ["team_id"], name: "index_users_on_team_id"
   end
 
+  add_foreign_key "adresses", "cities"
   add_foreign_key "clients", "adresses"
   add_foreign_key "clients", "teams"
+  add_foreign_key "invites", "teams"
+  add_foreign_key "invites", "users"
   add_foreign_key "teams", "users", column: "creator_id"
   add_foreign_key "users", "teams"
 end
