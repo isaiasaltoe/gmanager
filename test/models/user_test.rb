@@ -24,8 +24,4 @@ class UserTest < ActiveSupport::TestCase
     assert_not user.valid?
   end
 
-  teste "deve ser inválido com email duplicado"
-
-  do
-
 end
