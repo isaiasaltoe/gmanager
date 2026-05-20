@@ -1,2 +1,17 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+<%= render "/shared/navbar" %>
+<div class="container d-flex justify-content-around mt-5 gap-5" >
+    <div class=" w-50 ">
+        <h1>
+            Gestão descomplicada
+        </h1>
+        <p>
+            Gerenciar projetos freelance não precisa ser complexo. O gManager nasceu para ser o backoffice definitivo de equipes de desenvolvimento que buscam simplicidade e eficiência. Desenvolvido em Ruby on Rails, ele une o fluxo de trabalho ágil (Kanban) com gestão financeira e controle de acesso granular. É a ferramenta essencial para organizar a casa, manter os clientes alinhados e garantir que cada membro do time tenha foco total na sua próxima entrega.
+        </p>
+        <%= link_to new_user_registration_path do %>
+        <button class="btn btn-success">Crie sua conta</button>
+        <%end%>
+    </div>  
+    <div>
+        <%= image_tag "ana-gorsel-kanban.jpg", class:"shadow-lg rounded-3" %>
+    </div>  
+</div>
