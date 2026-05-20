@@ -1,4 +1,4 @@
-<div class="d-flex justify-content-around bg-black shadow p-2">
+<div class="d-flex justify-content-around bg-black shadow p-1">
     <div class="">
         <%= link_to root_path, class:'text-white text-decoration-none ' do %>
             <h1 class="fw-bold " > <span class="text-success">g</span>Manager</h1>
@@ -6,7 +6,12 @@
     </div>
     <div class="d-flex align-items-center ">
         <ul class="d-flex h5 mb-0 list-unstyled text-decoration-none align-items-center" >
-            <li><%= link_to "Login", new_user_session_path, class: "text-white link-success text-decoration-none" %></li>
+            <% if !user_signed_in? %>
+                <li><%= link_to "Login", new_user_session_path, class: " btn btn-link text-white link-success text-decoration-none" %></li>
+            <%else%>
+                <li><%= button_to "Logout", destroy_user_session_path, method: :delete, class: "btn btn-link text-white link-success text-decoration-none" %></li>
+            <%end%>
+            
         </ul>
     </div>
 </div>

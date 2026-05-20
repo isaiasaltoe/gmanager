@@ -7,8 +7,14 @@
         <p>
             Gerenciar projetos freelance não precisa ser complexo. O gManager nasceu para ser o backoffice definitivo de equipes de desenvolvimento que buscam simplicidade e eficiência. Desenvolvido em Ruby on Rails, ele une o fluxo de trabalho ágil (Kanban) com gestão financeira e controle de acesso granular. É a ferramenta essencial para organizar a casa, manter os clientes alinhados e garantir que cada membro do time tenha foco total na sua próxima entrega.
         </p>
-        <%= link_to new_user_registration_path do %>
-        <button class="btn btn-success">Crie sua conta</button>
+        <% if user_signed_in? %>
+            <%= link_to new_user_registration_path do %>
+            <button class="btn btn-success">Gerenciar projetos</button>
+            <%end%>
+        <%else%>
+            <%= link_to new_user_registration_path do %>
+            <button class="btn btn-success">Crie sua conta</button>
+            <%end%>
         <%end%>
     </div>  
     <div>
