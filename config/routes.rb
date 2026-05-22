@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :teams
   get "pages/home"
   get "lobby", to: "pages#lobby"
   devise_for :users
