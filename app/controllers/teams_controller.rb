@@ -1,6 +1,7 @@
 class TeamsController < ApplicationController
   before_action :set_team, only: %i[ show edit update destroy ]
   before_action :redirect_if_logged_out, only: [:new]
+  before_action :user_already_have_team, only: [:create]
   # GET /teams or /teams.json
   def index
     @teams = Team.all
@@ -21,7 +22,13 @@ class TeamsController < ApplicationController
 
   # POST /teams or /teams.json
   def create
-    @team = Team.new(team_params)
+    if user_already_have_team
+      flash.now[:alert] = "Você ja pertence a um time!"
+      render :new, status: :unprocessable_entity
+      return
+    end
+
+    @team = Team.new(team_params) 
 
     @team.user = current_user
     
@@ -76,5 +83,13 @@ class TeamsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def team_params
       params.require(:team).permit(:name)
+    end
+
+    def user_already_have_team
+      if current_user.team != nil
+        true
+      else
+        false
+      end
     end
 end

@@ -24,6 +24,10 @@
   </head>
 
   <body>
+    <%= render "/shared/navbar" %>
+    <% flash.each do |tipo, msg | %>
+      <%=msg%>
+    <%end%>
     <%= yield %>
   </body>
 </html>
