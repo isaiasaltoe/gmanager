@@ -8,7 +8,7 @@ joao:
   full_name: Joao Pedro
   email: joaopedro7@gmail.com
   encrypted_password: <%= Devise::Encryptor.digest(User, "senha123") %>
-  team_id: nill
+  team_id: flamengo
 
 maria:
   full_name: Maria Altoé
