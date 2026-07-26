@@ -1,7 +1,7 @@
 class TeamsController < ApplicationController
   before_action :set_team, only: %i[ show edit update destroy ]
-  before_action :redirect_if_logged_out, only: [:new]
-  before_action :user_already_have_team, only: [:create]
+  before_action :redirect_if_logged_out, only: [ :new ]
+  before_action :user_already_have_team, only: [ :create ]
   # GET /teams or /teams.json
   def index
     @teams = Team.all
@@ -13,6 +13,9 @@ class TeamsController < ApplicationController
 
   # GET /teams/new
   def new
+    if !current_user.team.nil?
+      redirect_to root_path
+    end
     @team = Team.new
   end
 
@@ -28,10 +31,10 @@ class TeamsController < ApplicationController
       return
     end
 
-    @team = Team.new(team_params) 
+    @team = Team.new(team_params)
 
     @team.user = current_user
-    
+
 
     respond_to do |format|
       if @team.save

@@ -35,6 +35,13 @@
   </div>
 <% end %>
 
+
+
+<%if current_user.team_id.present?%>
+  <p>Deseja sair do seu time?</p> 
+  <%= button_to "Sair do time", leave_team_path, data: { turbo_confirm: "certeza?"} ,method: :delete %>
+<%end%>
+
 <h3>Cancel my account</h3>
 
 <div>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete %></div>
