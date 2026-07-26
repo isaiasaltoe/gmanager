@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: gmanager
+      POSTGRES_PASSWORD: password
+
+  web:
+    build:
+      context: .
+      target: development
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/rails
+    environment:
+      DATABASE_URL: postgres://gmanager:password@db:5432/gmanager_development
+    depends_on:
+      - db
+
+volumes:
+  postgres_data:
