@@ -74,7 +74,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_17_214408) do
     t.string "description"
     t.date "finish_date"
     t.integer "installments_qty"
-    t.string "name"
+    t.string "name", null: false
     t.string "repo"
     t.integer "status"
     t.bigint "team_id", null: false
