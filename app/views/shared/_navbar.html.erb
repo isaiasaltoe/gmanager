@@ -9,10 +9,11 @@
             <% if !user_signed_in? %>
                 <li><%= link_to "Login", new_user_session_path, class: " btn btn-link text-white link-success text-decoration-none" %></li>
             <%else%>
-                <li><%= button_to "Logout", destroy_user_session_path, method: :delete, class: "btn btn-link text-white link-success text-decoration-none" %></li>
-                <li><%= link_to "Meu perfil", edit_user_registration_path, class: "btn btn-link text-white link-success text-decoration-none" %></li>
+                <li><%= link_to "Meu perfil", edit_user_registration_path, class: "btn btn-link text-white link-success text-decoration-none" %></li>   
             <%end%>
-            
+            <%if current_user.id == current_user.team.creator_id %>
+                <li><%= link_to "Meu time", edit_team_path(current_user.team.id), class: "btn btn-link text-white link-success text-decoration-none" %></li>    
+            <%end%>
         </ul>
     </div>
 </div>

@@ -1,7 +1,6 @@
 require "test_helper"
 
 class TeamTest < ActiveSupport::TestCase
-
   test "team name cant be blank" do
     team = Team.new()
 
@@ -10,3 +9,4 @@ class TeamTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end
+end
